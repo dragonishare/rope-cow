@@ -22,7 +22,11 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad() {
+        this.success = false;
+        // 初始分数
+        this.scoreNum = 0;
+    },
 
     start() {
 
@@ -61,6 +65,9 @@ cc.Class({
                 this.cow_ins = cc.instantiate(this.cow_prefab);
                 this.cow_ins.y = 0;
                 bgNode.addChild(this.cow_ins);
+                this.success = true;
+                // 分数+1
+                this.scoreNum++;
             } else {
                 cc.log("捕捉失败！")
             }
@@ -71,6 +78,12 @@ cc.Class({
 
         let finish = cc.callFunc(function () { 
             this.rope_node.getComponent(cc.Sprite).spriteFrame = this.rope_imgs[0];
+            // 判断是否捕捉成功
+            if (this.success === true) {
+                let scoreLabel = cc.find("Canvas/bg_sprite/score").getComponent(cc.Label);
+                scoreLabel.string = "Score:" + this.scoreNum;
+                this.success = false;
+            }
         }, this)
         
 
