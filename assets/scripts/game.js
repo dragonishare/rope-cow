@@ -17,7 +17,8 @@ cc.Class({
         cow_prefab: {
             default: null,
             type:cc.Prefab
-        }
+        },
+        time:0
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -29,7 +30,12 @@ cc.Class({
     },
 
     start() {
-
+        let countDownLabel = cc.find("Canvas/bg_sprite/count_down").getComponent(cc.Label);
+        countDownLabel.string = this.time + "s";
+        this.schedule(function () { 
+            this.time--;
+            countDownLabel.string = this.time + "s";
+        }, 1);
     },
 
     // update (dt) {},
