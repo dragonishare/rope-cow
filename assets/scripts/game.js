@@ -13,6 +13,10 @@ cc.Class({
         rope_imgs: {
             default: [],
             type:cc.SpriteFrame
+        },
+        cow_prefab: {
+            default: null,
+            type:cc.Prefab
         }
     },
 
@@ -47,9 +51,16 @@ cc.Class({
             let currentX = this.cow_ins.x;
             if (currentX > -100 && currentX < 100) {
                 cc.log("捕捉成功！");
-                // 更换绳子
+                // 移除
+                let bgNode = this.node.getChildByName("bg_sprite");
+                bgNode.removeChild(this.cow_ins);
+                // 获取牛儿的类型
                 let ropeType = this.cow_ins.getComponent("cow").randomType + 1;
                 this.rope_node.getComponent(cc.Sprite).spriteFrame = this.rope_imgs[ropeType];
+                // 生成新的牛节点
+                this.cow_ins = cc.instantiate(this.cow_prefab);
+                this.cow_ins.y = 0;
+                bgNode.addChild(this.cow_ins);
             } else {
                 cc.log("捕捉失败！")
             }
@@ -58,8 +69,13 @@ cc.Class({
         // 往回拉
         let down = cc.moveTo(0.5, this.rope_node.x, -600);
 
+        let finish = cc.callFunc(function () { 
+            this.rope_node.getComponent(cc.Sprite).spriteFrame = this.rope_imgs[0];
+        }, this)
+        
+
         // 定义一个序列动画
-        let sequence = cc.sequence(up, result,down);
+        let sequence = cc.sequence(up, result,down,finish);
         this.rope_node.runAction(sequence);
     }
 });
