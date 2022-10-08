@@ -961,6 +961,23 @@
     "rope_node": {
       "__id__": 20
     },
+    "cow_ins": {
+      "__id__": 12
+    },
+    "rope_imgs": [
+      {
+        "__uuid__": "d938788e-1798-40de-815f-a52e4acec81f"
+      },
+      {
+        "__uuid__": "65e71a4d-bcde-4896-ac9c-f9b9c7258efb"
+      },
+      {
+        "__uuid__": "8374d784-b25b-450b-a983-c2b7290dd372"
+      },
+      {
+        "__uuid__": "32bbde50-37fd-40fa-a548-1c35b8a7626d"
+      }
+    ],
     "_id": "d3dM/x7iRN34lCZF3ImKGY"
   }
 ]
