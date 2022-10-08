@@ -121,5 +121,12 @@ cc.Class({
         // 定义一个序列动画
         let sequence = cc.sequence(up, result,down,finish);
         this.rope_node.runAction(sequence);
+    },
+
+    // 关闭按钮，继续游戏
+    closeBtn() {
+        cc.log("继续游戏");
+        cc.director.resume();
+        cc.director.loadScene("game");
     }
 });
