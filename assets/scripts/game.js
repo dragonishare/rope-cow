@@ -35,6 +35,31 @@ cc.Class({
         this.schedule(function () { 
             this.time--;
             countDownLabel.string = this.time + "s";
+            if (this.time === 0) {
+                cc.log("游戏结束！");
+                // 获取结果弹窗节点
+                let resultNode = cc.find("Canvas/result");
+                // 通过getChildByName获得子节点, title和content
+                let titleNode = resultNode.getChildByName("title");
+                let contentNode = resultNode.getChildByName("content");
+                // 最终得分显示
+                titleNode.getComponent(cc.Label).string = "最终得分 " + this.scoreNum;
+                // 最终成就
+                let contentLabel = contentNode.getComponent(cc.Label);
+                switch (true) {
+                    case this.scoreNum <= 3:
+                        contentLabel.string = "套牛青铜";
+                        break;
+                    case this.scoreNum < 6:
+                        contentLabel.string = "套牛高手";
+                        break;
+                    case this.scoreNum >= 6:
+                        contentLabel.string = "套牛王者";
+                        break;
+                }
+                resultNode.active = true;
+                cc.director.pause();
+            }
         }, 1);
     },
 
